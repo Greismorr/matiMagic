@@ -1,3 +1,3 @@
 # matiMagic
 
-aaaaJava project to create Random Educational Operations for Anna.
+Java project to create Random Educational Operations for Anna.
