@@ -1,0 +1,46 @@
+[33mcommit 49019bff552e333eae1854ed1a8fc6a64dbb9aba[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: stackOvercrow <gabriel-reis1999@hotmail.com>
+Date:   Thu Jul 30 17:11:01 2020 -0300
+
+    git tag Alfa 1.0
+
+[33mcommit afda3ef67e7a0b475a97309b595f1f083785990f[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: stackOvercrow <gabriel-reis1999@hotmail.com>
+Date:   Wed Jul 29 14:41:32 2020 -0300
+
+    Revert "Teste"
+    
+    This reverts commit 063f0f10a52dbe4f356d3d234d680d2cd4623b1b.
+
+[33mcommit 063f0f10a52dbe4f356d3d234d680d2cd4623b1b[m
+Author: stackOvercrow <gabriel-reis1999@hotmail.com>
+Date:   Wed Jul 29 14:38:35 2020 -0300
+
+    Teste
+
+[33mcommit f8dd5b118fc484a554a4608af0180fa3ad90348c[m
+Author: stackOvercrow <gabriel-reis1999@hotmail.com>
+Date:   Wed Jul 29 12:37:43 2020 -0300
+
+    README atualizado.
+
+[33mcommit ce7a5454e743e32d8929af531d461fc8cb49c46d[m
+Merge: dfdbb1d c493d35
+Author: stackOvercrow <gabriel-reis1999@hotmail.com>
+Date:   Wed Jul 29 12:07:04 2020 -0300
+
+    Merge branch 'master' of gitlab.com:stackOvercrow/matiMagic into master
+    
+    First Commit.
+
+[33mcommit c493d3578b7eae311c0ae941e9977049a4bfbf30[m
+Author: Gabriel Reis <gabriel-reis1999@hotmail.com>
+Date:   Wed Jul 29 14:55:01 2020 +0000
+
+    Initial commit
+
+[33mcommit dfdbb1d403072779ee61f74d6e5be158ae09a28f[m
+Author: stackOvercrow <gabriel-reis1999@hotmail.com>
+Date:   Wed Jul 29 11:51:30 2020 -0300
+
+    Source code for matiMagic.
