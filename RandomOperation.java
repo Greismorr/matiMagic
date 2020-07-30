@@ -1,15 +1,19 @@
 import java.util.Random;
 
 public class RandomOperation {
-    private Random magicNumber;
+    private Random magicNumber = new Random();
 
-    public float[] CreateOperation(){
+    public float[] getOperation(){
         float[] operation = new float[2];
-
-        operation[0] = magicNumber.nextFloat();
-        operation[1] = magicNumber.nextFloat();
-        operation[2] = operation[0] * operation[1];
+        operation[0] = 0 + magicNumber.nextFloat() * (10 - 0);
+        operation[1] = 0 + magicNumber.nextFloat() * (10 - 0);
 
         return operation;
+    }
+
+    public char getOperatorSign(){
+        char[] operators = {'+','-','/','*'};
+
+        return operators[magicNumber.nextInt(4)];
     }
 }
