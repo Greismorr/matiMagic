@@ -13,7 +13,8 @@ public class MatiMagic{
 
     public static void main(String[] args) {
         createAndShowGUI();
-        Menus.buttonEvent();
+        Menus.operationButtonEvent();
+        Menus.fractionSpinnerEvent();
     }
 
     public static float[] getOperationTerms(){

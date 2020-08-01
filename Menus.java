@@ -1,5 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,16 +13,20 @@ public class Menus extends JPanel{
     private static JLabel operationLabel = new JLabel("Clique no botão");
     private final Border blackBorder = BorderFactory.createLineBorder(Color.black);
     private final JFrame window = new JFrame("MatiMagic");
+    private static SpinnerModel fractionValor = new SpinnerNumberModel(1, 1, 6, 1);
+    private static JSpinner numberSpinner = new JSpinner(fractionValor);
     public static JButton operationButton = new JButton("Nova Operação");
+    private static int fractionDigits = 1;
 
     public Menus(){
-        this.addButton();
+        this.newOperationButton();
+        this.fractionValorButton();
         this.introText("Operações matemáticas para a mulher mais linda do mundo!");
         this.operationLabel();
-        window.setSize(450, 300);
-        window.setLayout(null);
-        window.setVisible(true);
-        window.setResizable(false);
+        this.window.setSize(450, 450);
+        this.window.setLayout(null);
+        this.window.setVisible(true);
+        this.window.setResizable(false);
     }
 
     private void introText(String text){
@@ -30,13 +36,26 @@ public class Menus extends JPanel{
         textApr.setFont(new Font("Arial", Font.BOLD,15));
         textApr.setBounds(5, 20, 450, 20);
 
-        window.add(textApr);
+        this.window.add(textApr);
     }
 
-    private void addButton(){
-        operationButton.setBounds(55, 200, 300,  40);
+    private void fractionValorButton(){
+        int yPosition = 200;
+        JLabel fractionInfo = new JLabel("Número de casas após a vírgula:");
 
-        window.add(operationButton);
+        fractionInfo.setFont(new Font("Arial", Font.BOLD,15));
+        fractionInfo.setBounds(70, yPosition, 300, 20);
+        numberSpinner.setBorder(blackBorder);
+        numberSpinner.setBounds(310, yPosition, 30, 20);
+
+        this.window.add(fractionInfo);
+        this.window.add(numberSpinner);
+    }
+
+    private void newOperationButton(){
+        operationButton.setBounds(55, 350, 300,  40);
+
+        this.window.add(operationButton);
     }
 
     private void operationLabel(){
@@ -44,7 +63,7 @@ public class Menus extends JPanel{
         operationLabel.setFont(new Font("Arial", Font.BOLD,15));
         operationLabel.setHorizontalAlignment(SwingConstants.CENTER);
         operationLabel.setBorder(this.blackBorder);
-        window.add(operationLabel);
+        this.window.add(operationLabel);
     }
 
     private static void loadOperation(){
@@ -52,8 +71,8 @@ public class Menus extends JPanel{
         char operator = MatiMagic.getOperator();
         DecimalFormat format = new DecimalFormat();
 
-        format.setMaximumFractionDigits(4);
-        format.setMinimumFractionDigits(4);
+        format.setMaximumFractionDigits(Menus.fractionDigits);
+        format.setMinimumFractionDigits(Menus.fractionDigits);
 
         String firstTerm = (String.valueOf(format.format(operation[0])));
         String secondTerm = (String.valueOf(format.format(operation[1])));
@@ -61,11 +80,21 @@ public class Menus extends JPanel{
         operationLabel.setText(firstTerm + ' ' + operator + ' ' + secondTerm);
     }
 
-    public static void buttonEvent(){
+    public static void operationButtonEvent(){
         Menus.operationButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 loadOperation();
+            }
+        });
+    }
+
+    public static void fractionSpinnerEvent(){
+        Menus.numberSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                Menus.fractionDigits = (int)((JSpinner)e.getSource()).getValue();
+                System.out.println(Menus.fractionDigits);
             }
         });
     }
