@@ -1,28 +1,37 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MatiMagic{
-    private static RandomOperation magicOperation = new RandomOperation();
-
-    private static void createAndShowGUI() {
-        new Menus();
-    }
 
     public static void main(String[] args) {
-        createAndShowGUI();
-        Menus.operationButtonEvent();
-        Menus.fractionSpinnerEvent();
-    }
+        Menus menu = new Menus();
+        RandomOperation magicOperation = new RandomOperation();
 
-    public static float[] getOperationTerms(){
-        return magicOperation.getOperation();
-    }
+        menu.operationButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                menu.setMouseClicked(true);
 
-    public static char getOperator(){
-        return magicOperation.getOperatorSign();
+                if(menu.isMouseClicked()){
+                    menu.setResultEditable();
+                }
+                magicOperation.getResult(menu.getFractionDigits());
+                menu.loadOperation(magicOperation.getOperation(), magicOperation.getOperatorSign());
+            }
+        });
+
+        menu.numberSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                menu.setFractionDigits((int)((JSpinner)e.getSource()).getValue());
+            }
+        });
     }
 
 }
+

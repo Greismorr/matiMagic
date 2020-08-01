@@ -1,28 +1,28 @@
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 
 public class Menus extends JPanel{
-    private static JLabel operationLabel = new JLabel("Clique no botão");
+    private JLabel operationLabel = new JLabel("Clique no botão");
     private final Border blackBorder = BorderFactory.createLineBorder(Color.black);
     private final JFrame window = new JFrame("MatiMagic");
-    private static SpinnerModel fractionValor = new SpinnerNumberModel(1, 1, 6, 1);
-    private static JSpinner numberSpinner = new JSpinner(fractionValor);
-    public static JButton operationButton = new JButton("Nova Operação");
-    private static int fractionDigits = 1;
+    private float[] operator;
+    private int centerLabel = 70;
+    JNumberField operationResult = new JNumberField(12);
+    private boolean mouseClicked = false;
+    private int centerField = 310;
+    private SpinnerModel fractionValor = new SpinnerNumberModel(1, 1, 6, 1);
+    public JSpinner numberSpinner = new JSpinner(fractionValor);
+    public JButton operationButton = new JButton("Nova Operação");
+    private int fractionDigits = 1;
 
     public Menus(){
         this.newOperationButton();
         this.fractionValorButton();
         this.introText("Operações matemáticas para a mulher mais linda do mundo!");
-        this.operationLabel();
+        this.addOperationLabel();
+        this.operationResult();
         this.window.setSize(450, 450);
         this.window.setLayout(null);
         this.window.setVisible(true);
@@ -37,6 +37,24 @@ public class Menus extends JPanel{
         textApr.setBounds(5, 20, 450, 20);
 
         this.window.add(textApr);
+    }
+
+    private void operationResult(){
+        int yPosition = 280;
+        JLabel resultInfo = new JLabel("Resultado da Operação:");
+
+        resultInfo.setFont(new Font("Arial", Font.BOLD,15));
+        resultInfo.setBounds(this.centerLabel, yPosition, 300, 20);
+        operationResult.setBorder(blackBorder);
+        operationResult.setBounds(260, yPosition, 100, 20);
+        operationResult.setEditable(false);
+
+        this.window.add(operationResult);
+        this.window.add(resultInfo);
+    }
+
+    public void setResultEditable(){
+        this.operationResult.setEditable(true);
     }
 
     private void fractionValorButton(){
@@ -58,7 +76,7 @@ public class Menus extends JPanel{
         this.window.add(operationButton);
     }
 
-    private void operationLabel(){
+    private void addOperationLabel(){
         operationLabel.setBounds(105, 90, 200, 50);
         operationLabel.setFont(new Font("Arial", Font.BOLD,15));
         operationLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -66,13 +84,11 @@ public class Menus extends JPanel{
         this.window.add(operationLabel);
     }
 
-    private static void loadOperation(){
-        float[] operation = MatiMagic.getOperationTerms();
-        char operator = MatiMagic.getOperator();
+    public void loadOperation(double[] operation, char operator){
         DecimalFormat format = new DecimalFormat();
 
-        format.setMaximumFractionDigits(Menus.fractionDigits);
-        format.setMinimumFractionDigits(Menus.fractionDigits);
+        format.setMaximumFractionDigits(this.fractionDigits);
+        format.setMinimumFractionDigits(this.fractionDigits);
 
         String firstTerm = (String.valueOf(format.format(operation[0])));
         String secondTerm = (String.valueOf(format.format(operation[1])));
@@ -80,23 +96,24 @@ public class Menus extends JPanel{
         operationLabel.setText(firstTerm + ' ' + operator + ' ' + secondTerm);
     }
 
-    public static void operationButtonEvent(){
-        Menus.operationButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                loadOperation();
-            }
-        });
+    public void setMouseClicked(boolean valor){
+        this.mouseClicked = valor;
     }
 
-    public static void fractionSpinnerEvent(){
-        Menus.numberSpinner.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                Menus.fractionDigits = (int)((JSpinner)e.getSource()).getValue();
-                System.out.println(Menus.fractionDigits);
-            }
-        });
+    public void resetMouseClicked(){
+        this.mouseClicked = false;
+    }
+
+    public boolean isMouseClicked(){
+        return this.mouseClicked;
+    }
+
+    public void setFractionDigits(int n){
+        this.fractionDigits = n;
+    }
+
+    public int getFractionDigits(){
+        return this.fractionDigits;
     }
 
 }
