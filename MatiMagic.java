@@ -10,18 +10,20 @@ public class MatiMagic{
 
     public static void main(String[] args) {
         Menus menu = new Menus();
+        Popups popUp = new Popups();
         RandomOperation magicOperation = new RandomOperation();
 
         menu.operationButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                menu.setMouseClicked(true);
+                menu.setProgramStarted(true);
 
-                if(menu.isMouseClicked()){
+                if(menu.isProgramStarted()){
                     menu.setResultEditable();
+                    menu.loadFullProgram();
+                    menu.loadOperation(magicOperation.getOperation(menu.getFractionDigits()), magicOperation.getOperatorSign());
                 }
-                magicOperation.getResult(menu.getFractionDigits());
-                menu.loadOperation(magicOperation.getOperation(), magicOperation.getOperatorSign());
+                magicOperation.setResult(menu.getFractionDigits());
             }
         });
 
@@ -31,7 +33,24 @@ public class MatiMagic{
                 menu.setFractionDigits((int)((JSpinner)e.getSource()).getValue());
             }
         });
-    }
 
+        menu.confirmButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(magicOperation.checkResult(menu.resultLabel.getText())){
+                    popUp.confirmMessage();
+                }else{
+                    popUp.errorMessage();
+                }
+            }
+        });
+
+        popUp.closePop.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                popUp.closePop();
+            }
+        });
+    }
 }
 

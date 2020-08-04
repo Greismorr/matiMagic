@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 
 import java.awt.event.KeyEvent;
 
@@ -38,7 +40,7 @@ public final class JNumberField extends JTextField {
     }
 
     private void jTextFieldKeyTyped(KeyEvent evt) {
-        String operationChar = "0123456789,.";
+        String operationChar = "0123456789.-";
 
         if(!operationChar.contains(evt.getKeyChar()+"")){
             evt.consume();
