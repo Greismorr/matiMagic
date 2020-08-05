@@ -51,12 +51,9 @@ public class RandomOperation {
                 result = firstTerm.divide(secondTerm, this.fractionDigits);
                 break;
         }
-
         System.out.println(this.result);
 
         this.result = this.round(this.result);
-
-        System.out.println(this.result);
     }
 
     public char getOperatorSign(){

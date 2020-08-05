@@ -16,8 +16,9 @@ public class Menus extends JPanel{
     private int centerField = 310;
     private SpinnerModel fractionValor = new SpinnerNumberModel(1, 1, 6, 1);
     public JSpinner numberSpinner = new JSpinner(fractionValor);
-    public JButton operationButton = new JButton("Nova Operação");
+    public JButton newOperationButton = new JButton("Nova Operação");
     private int fractionDigits = 1;
+    private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     public Menus(){
         this.newOperationButton();
@@ -26,6 +27,7 @@ public class Menus extends JPanel{
         this.addOperationLabel();
         this.addResultLabel();
         this.window.setSize(450, 450);
+        this.window.setLocationRelativeTo(null);
         this.window.setLayout(null);
         this.window.setVisible(true);
         this.window.setResizable(false);
@@ -73,13 +75,13 @@ public class Menus extends JPanel{
     }
 
     private void newOperationButton(){
-        operationButton.setBounds(55, 350, 300,  40);
+        newOperationButton.setBounds(60, 350, 300,  40);
 
-        this.window.add(operationButton);
+        this.window.add(newOperationButton);
     }
 
     private void addResultButton(){
-        this.confirmButton.setBounds(55, 300, 300,  40);
+        this.confirmButton.setBounds(60, 300, 300,  40);
 
         this.window.add(confirmButton);
         this.window.repaint();
@@ -102,6 +104,24 @@ public class Menus extends JPanel{
         String secondTerm = String.valueOf(operation[1]);
 
         operationLabel.setText(firstTerm + ' ' + operator + ' ' + secondTerm);
+    }
+
+    public void setNotEditable(){
+        this.resultLabel.setEditable(false);
+        this.newOperationButton.setEnabled(false);
+        this.confirmButton.setEnabled(false);
+        this.numberSpinner.setEnabled(false);
+    }
+
+    public void setEditable(){
+        this.resultLabel.setEditable(true);
+        this.newOperationButton.setEnabled(true);
+        this.confirmButton.setEnabled(true);
+        this.numberSpinner.setEnabled(true);
+    }
+
+    public boolean isEnabled(){
+        return this.numberSpinner.isEnabled();
     }
 
     public void setProgramStarted(boolean valor){
