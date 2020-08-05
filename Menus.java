@@ -26,6 +26,7 @@ public class Menus extends JPanel{
         this.introText("Operações matemáticas para a mulher mais linda do mundo!");
         this.addOperationLabel();
         this.addResultLabel();
+        this.window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.window.setSize(450, 450);
         this.window.setLocationRelativeTo(null);
         this.window.setLayout(null);
